@@ -5,38 +5,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Page Title</title>
+    <!-- Подключение шрифта (замените ссылку на свой шрифт) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400,700&display=swap">
+    <!-- Подключение Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Общие стили */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Стили для десктопной версии */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #f0f0f0;
+        .page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu-item {
+            margin-right: 20px;
+        }
+
+        .content {
+            flex: 1;
             padding: 20px;
         }
 
-        /* Дополнительные стили для мобильных устройств */
+        /* Стили для мобильной версии */
         @media only screen and (max-width: 767px) {
-            .container {
-                padding: 10px;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu {
+                margin-top: 10px;
+                margin-right: 0;
+            }
+
+            .menu-item {
+                margin-right: 0;
+                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Ваш контент здесь -->
-        <h1>Заголовок страницы</h1>
-        <p>Ваш текст и другие элементы страницы.</p>
+    <div class="page">
+        <header class="header">
+            <div class="logo">Your Logo</div>
+            <nav class="menu">
+                <div class="menu-item">Home</div>
+                <div class="menu-item">About</div>
+                <div class="menu-item">Contact</div>
+            </nav>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </header>
+        <div class="content">
+            <!-- Ваш контент здесь -->
+            <h1>Заголовок страницы</h1>
+            <p>Ваш текст и другие элементы страницы.</p>
+        </div>
     </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector('.menu');
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
 </body>
 
 </html>
