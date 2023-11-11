@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400,700&display=swap">
     <!-- Подключение Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Подключение jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Подключение Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Подключение Slick Carousel JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Подключение библиотеки inputmask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.3/jquery.inputmask.min.js"></script>
+    <meta name="description" content="Описание вашей страницы">
+    <!-- Дополнительные мета-теги, если необходимо -->
+    <!-- ... -->
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -58,6 +69,11 @@
             padding: 20px;
         }
 
+        .slider {
+            width: 80%;
+            margin: 0 auto;
+        }
+
         /* Стили для мобильной версии */
         @media only screen and (max-width: 767px) {
             .header {
@@ -95,10 +111,85 @@
             <!-- Ваш контент здесь -->
             <h1>Заголовок страницы</h1>
             <p>Ваш текст и другие элементы страницы.</p>
+            <!-- Добавляем слайдер -->
+            <div class="slider">
+                <div>Слайд 1</div>
+                <div>Слайд 2</div>
+                <div>Слайд 3</div>
+            </div>
+
+            <!-- Добавляем форму подписки -->
+            <form id="subscribeForm" action="#" method="post">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Телефон:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <button type="submit">Подписаться</button>
+            </form>
         </div>
     </div>
 
     <script>
+        // Вызываем Slick для слайдера
+        $(document).ready(function(){
+            $('.slider').slick();
+        });
+
+        // Настройка маски для телефона
+        $(document).ready(function(){
+            $('#phone').inputmask({ mask: '+7 (999) 999-99-99' });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var subscribeForm = document.getElementById('subscribeForm');
+
+            subscribeForm.addEventListener('submit', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                var emailInput = document.getElementById('email');
+                var nameInput = document.getElementById('name');
+                var phoneInput = document.getElementById('phone');
+
+                var email = emailInput.value;
+                var name = nameInput.value;
+                var phone = phoneInput.value;
+
+                var isValid = true;
+
+                // Проверка наличия значения в полях
+                if (!email || !name || !phone) {
+                    alert('Пожалуйста, заполните все обязательные поля.');
+                    isValid = false;
+                    return isValid;
+                }
+
+                // Проверка корректности email
+                if (!validator.isEmail(email)) {
+                    alert('Пожалуйста, введите корректный адрес электронной почты.');
+                    isValid = false;
+                    return isValid;
+                }
+
+                // Проверка телефона на наличие только цифр
+                if (!validator.isNumeric(phone)) {
+                    alert('Пожалуйста, введите корректный номер телефона (только цифры).');
+                    isValid = false;
+                    return isValid;
+                }
+
+                return isValid;
+            }
+        });
+
         function toggleMenu() {
             var menu = document.querySelector('.menu');
             menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
